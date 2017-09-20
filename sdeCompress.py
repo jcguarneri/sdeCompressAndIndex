@@ -1,10 +1,17 @@
-import datetime
+import arcpy
 
 # Process: Compress
 arcpy.Compress_management("C:\Users\GeoNexusAdmin\AppData\Roaming\ESRI\Desktop10.4\ArcCatalog\Connection to asteroid.sde")
 
 try:
-
+    
+    cMessage = arcpy.GetMessages()
+    cMessageCount = arcpy.GetMessageCount()
+       
+    logFile = open(r'C:\Users\GeoNexusAdmin\Desktop\compressLog.txt', 'wb')
+    logFile.write('End Message:%s\nNumber of messages: %s'%(cMessage,cMessageCount)
+                  
+                  
     # set the workspace 
     arcpy.env.workspace = r"C:\Users\GeoNexusAdmin\AppData\Roaming\ESRI\Desktop10.4\ArcCatalog\Connection to asteroid.sde"
 
@@ -30,8 +37,15 @@ try:
     arcpy.RebuildIndexes_management(workspace, "NO_SYSTEM", dataList, "ALL")
 
     arcpy.AnalyzeDatasets_management(workspace, "NO_SYSTEM", dataList, "ANALYZE_BASE", "ANALYZE_DELTA", "ANALYZE_ARCHIVE")
-
+    
+    logFile.write("\nSuccess!")
+    logFile.close()             
+                  
 except:
     messageText = arcpy.GetMessages()
+    logFile = open(r'C:\Users\GeoNexusAdmin\Desktop\compressLog.txt', 'wb')
+    logFile.write("Index failed")
+    logFile.write(messageText)
+    logFile.close()              
         
 
