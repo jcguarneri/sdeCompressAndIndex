@@ -11,7 +11,7 @@ try:
        
     #open log file and write compress message information
     logFile = open(r'C:\Users\GeoNexusAdmin\Desktop\compressLog.txt', 'wb')
-    logFile.write('End Message:%s\nNumber of messages: %s'%(cMessage,cMessageCount)
+    logFile.write('End Message:%s\nNumber of messages: %s'%(cMessage,cMessageCount))
                   
                   
     # set the workspace 
